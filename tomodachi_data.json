@@ -1,0 +1,15 @@
+{
+  "apartments": [
+    {
+      "unit_id": "101",
+      "floor": 1,
+      "position": 1,
+      "resident": "Noah",
+      "note": "¿Alguien tiene sal? Se me acabo",
+      "mood": "Tranquilo",
+      "mood_windows": "tomodachi_imagenes/playA.gif,tomodachi_imagenes/playB.gif",
+          "foto": "personajes_imagenes/Noah.jpg"
+    }
+
+  ]
+}
