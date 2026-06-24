@@ -5,11 +5,32 @@
       "floor": 1,
       "position": 1,
       "resident": "Noah",
-      "note": "¿Alguien tiene sal? Se me acabo",
+      "note": "¿COMO SABE DONDE ESTA MI CASA? gracias por la sal",
       "mood": "Tranquilo",
       "mood_windows": "tomodachi_imagenes/playA.gif,tomodachi_imagenes/playB.gif",
           "foto": "personajes_imagenes/Noah.jpg"
+    },
+        {
+      "unit_id": "205",
+      "floor": 2,
+      "position": 5,
+      "resident": "Ronin",
+      "note": "Ya le dejé la sal a Noah. Ando ejercitando.",
+      "mood": "Tranquilo",
+      "mood_windows": "tomodachi_imagenes/homeA.gif,tomodachi_imagenes/homeB.gif",
+          "foto": "personajes_imagenes/Ronin.png"
+    },
+        {
+      "unit_id": "204",
+      "floor": 2,
+      "position": 4,
+      "resident": "▹ Ather",
+      "note": "(Los caminos de la vida-)",
+      "mood": "Ansiosa",
+      "mood_windows": "tomodachi_imagenes/swirlA.gif,tomodachi_imagenes/swirlB.gif",
+          "foto": "personajes_imagenes/Ather.jpg"
     }
+
 
   ]
 }
