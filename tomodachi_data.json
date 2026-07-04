@@ -49,6 +49,16 @@
       "mood": "Tranquilo",
       "mood_windows": "tomodachi_imagenes/homeA.gif,tomodachi_imagenes/homeB.gif",
           "foto": "personajes_imagenes/Ronin.png"
+    },
+      {
+      "unit_id": "305",
+      "floor": 3,
+      "position": 5,
+      "resident": "Jellygirl_May(✿◠‿◠)",
+      "note": "Quiero ver una de esas series de eliminación... Eva me dijo que Drama Total es buena.",
+      "mood": "Contenta :3",
+      "mood_windows": "tomodachi_imagenes/loveA.gif,tomodachi_imagenes/loveB.gif",
+          "foto": "personajes_imagenes/May.jpg"
     }
     
   ]
