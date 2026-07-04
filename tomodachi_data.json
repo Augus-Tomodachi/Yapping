@@ -5,22 +5,32 @@
       "floor": 1,
       "position": 1,
       "resident": "Noah",
-      "note": "¿COMO SABE DONDE ESTA MI CASA? gracias por la sal",
-      "mood": "Tranquilo",
+      "note": "Toy canshao",
+      "mood": "ZzzZZzz",
       "mood_windows": "tomodachi_imagenes/playA.gif,tomodachi_imagenes/playB.gif",
           "foto": "personajes_imagenes/Noah.jpg"
+    }, 
+    {
+      "unit_id": "103",
+      "floor": 1,
+      "position": 3,
+      "resident": "Logan",
+      "note": "Estoy practicando con el arco...",
+      "mood": "Serena",
+      "mood_windows": "tomodachi_imagenes/scribbleA.gif,tomodachi_imagenes/scribbleB.gif",
+          "foto": "personajes_imagenes/Logan.png"
     },
-        {
-      "unit_id": "205",
+    {
+      "unit_id": "201",
       "floor": 2,
-      "position": 5,
-      "resident": "Ronin",
-      "note": "Ya le dejé la sal a Noah. Ando ejercitando.",
+      "position": 1,
+      "resident": "Daniel",
+      "note": "Resolviendo el crucigrama de hoy",
       "mood": "Tranquilo",
-      "mood_windows": "tomodachi_imagenes/homeA.gif,tomodachi_imagenes/homeB.gif",
-          "foto": "personajes_imagenes/Ronin.png"
+      "mood_windows": "tomodachi_imagenes/skyA.gif,tomodachi_imagenes/skyB.gif",
+          "foto": "personajes_imagenes/Daniel.png"
     },
-        {
+    {
       "unit_id": "204",
       "floor": 2,
       "position": 4,
@@ -29,8 +39,16 @@
       "mood": "Ansiosa",
       "mood_windows": "tomodachi_imagenes/swirlA.gif,tomodachi_imagenes/swirlB.gif",
           "foto": "personajes_imagenes/Ather.jpg"
+    },
+        {
+      "unit_id": "205",
+      "floor": 2,
+      "position": 5,
+      "resident": "Ronin",
+      "note": "Estoy conquistando el submundo del Rey Rata. No me llamen",
+      "mood": "Tranquilo",
+      "mood_windows": "tomodachi_imagenes/homeA.gif,tomodachi_imagenes/homeB.gif",
+          "foto": "personajes_imagenes/Ronin.png"
     }
-
-
   ]
 }
