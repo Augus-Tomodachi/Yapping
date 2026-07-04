@@ -8,7 +8,6 @@
 <meta property="og:title" content="Tomodachi Life · Edificio de Apartamentos">
 <meta property="og:description" content="Complejo de apartamentos de 3 pisos — cielo dinámico, grama animada y nubes temporales">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-
 <style>
 @font-face {
   font-family: 'Hikaru';
@@ -338,15 +337,20 @@ body::before {
   font-family:'Rodin',monospace;
 }
 .modal-overlay.open{visibility:visible;opacity:1;}
+
 .modal-card{
   background:linear-gradient(145deg,var(--cream-pale),var(--cream-dark));
-  width:400px; border-radius:48px;
+  max-width:500px;             
+  width:auto;                  
+  min-width:280px;             
+  border-radius:48px;
   border-left:3px solid var(--orange-xs); border-top:3px solid var(--orange-xs);
   border-right:3px solid #a04d00; border-bottom:3px solid #a04d00;
   box-shadow:0 32px 56px rgba(0,0,0,0.88), 0 0 0 8px rgba(44,16,76,0.28), inset 0 1px 0 rgba(255,255,255,0.6);
   padding:18px 18px 26px; text-align:center; color:var(--text-dark);
   transform:scale(0.88);
   transition:transform .24s cubic-bezier(0.34,1.56,0.64,1);
+  margin:0 12px;                
 }
 .modal-overlay.open .modal-card{transform:scale(1);}
 .modal-unit-chip{
@@ -381,13 +385,18 @@ body::before {
   background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:17px;
 }
 @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+
 .modal-resident-name{
   font-size:22px;font-weight:bold;
   background:var(--purple-md);color:var(--gold-lt);
   display:inline-block;padding:3px 20px;border-radius:50px;
   border-left:2px solid rgba(255,239,185,0.25); border-top:2px solid rgba(255,239,185,0.25);
   border-right:2px solid rgba(20,6,40,0.8); border-bottom:2px solid rgba(20,6,40,0.8);
-  margin-bottom:7px; white-space:nowrap; max-width:100%; overflow:hidden; text-overflow:ellipsis;
+  margin-bottom:7px;
+  max-width:100%;
+  white-space:normal;          
+  word-break:break-word;      
+  overflow-wrap:break-word;
   box-shadow:0 2px 8px rgba(0,0,0,0.3);
 }
 .modal-mood-tag{
@@ -396,13 +405,18 @@ body::before {
   padding:2px 12px;border-radius:30px;display:inline-block;
   border:1px solid rgba(255,170,68,0.3);
 }
+
 .modal-note{
   background:var(--cream-pale);margin:0 4px 6px;padding:12px 15px;border-radius:24px;
-  font-size:13.5px;word-break:break-word;min-height:72px;
+  font-size:13.5px;
+  min-height:72px;
   border-left:3px solid var(--orange-xs);border-top:3px solid var(--orange-xs);
   border-right:3px solid #a04d00;border-bottom:3px solid #a04d00;
   color:var(--text-dark);font-weight:500;text-align:left;line-height:1.55;
   box-shadow:inset 0 1px 2px rgba(0,0,0,0.07);
+  word-break:break-word;
+  overflow-wrap:break-word;   
+  white-space:normal;
 }
 .tomo-close-btn{
   background:var(--orange);font-family:'Rodin',monospace;
@@ -423,7 +437,7 @@ body::before {
   .building-section{width:100%;max-width:100%;height:460px;}
   #apartmentsGrid{width:480px;}
   .building-img-wrap img#buildingBg{width:480px;height:544px;}
-  .modal-card{width:92vw;}
+  .modal-card{max-width:92vw; min-width:auto;}   
 }
 </style>
 </head>
