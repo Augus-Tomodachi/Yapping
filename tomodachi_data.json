@@ -60,6 +60,16 @@
       "mood_windows": "tomodachi_imagenes/loveA.gif,tomodachi_imagenes/loveB.gif",
           "foto": "personajes_imagenes/May.jpg"
     },
+          {
+      "unit_id": "306",
+      "floor": 3,
+      "position": 6,
+      "resident": "Evanescia",
+      "note": " Ayuda, no puedo pasar del primer capitulo del anime del pirata de goma y sus amigos (ᗒᗣᗕ)՞.",
+      "mood": "Alegre ( ˘▽˘)っ♨",
+      "mood_windows": "tomodachi_imagenes/playA.gif,tomodachi_imagenes/playB.gif",
+          "foto": "personajes_imagenes/Eva.png"
+    },
      {
       "unit_id": "308",
       "floor": 3,
