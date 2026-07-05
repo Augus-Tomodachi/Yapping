@@ -20,6 +20,16 @@
       "mood_windows": "tomodachi_imagenes/scribbleA.gif,tomodachi_imagenes/scribbleB.gif",
           "foto": "personajes_imagenes/Logan.png"
     },
+       {
+      "unit_id": "105",
+      "floor": 1,
+      "position": 5,
+      "resident": "Ir1s_T",
+      "note": "Rauch es una ciudad poco fotogénica",
+      "mood": "Desinspirada",
+      "mood_windows": "tomodachi_imagenes/problemA.gif,tomodachi_imagenes/problemB.gif",
+          "foto": "personajes_imagenes/Iris.jpg"
+    },
     {
       "unit_id": "201",
       "floor": 2,
