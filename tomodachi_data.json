@@ -60,6 +60,16 @@
       "mood_windows": "tomodachi_imagenes/homeA.gif,tomodachi_imagenes/homeB.gif",
           "foto": "personajes_imagenes/Ronin.png"
     },
+     {
+      "unit_id": "207",
+      "floor": 2,
+      "position": 7,
+      "resident": "𐂂Endministrator𐂂",
+      "note": "Me identificó como gato... No por thenían, si no por vago",
+      "mood": "Cansado 😴",
+      "mood_windows": "tomodachi_imagenes/skyA.gif,tomodachi_imagenes/skyB.gif",
+          "foto": "personajes_imagenes/Andreas.png"
+    },
       {
       "unit_id": "305",
       "floor": 3,
