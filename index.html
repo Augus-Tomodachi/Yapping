@@ -23,13 +23,9 @@
 }
 
 :root {
-  --piso1-top: 430px;
-  --piso2-top: 320px;
-  --piso3-top: 200px;
   --ventana-ancho: 69px;
   --ventana-alto:  120px;
   --ventana-gap:   4px;
-  --building-height: 740px;
   --cream:      #fff2df;
   --cream-dark: #ffe0b5;
   --cream-pale: #fff8ee;
@@ -104,15 +100,6 @@ body::before {
 }
 .header-stickers img:hover{transform:scale(1.13) rotate(-4deg);filter:drop-shadow(0 4px 14px var(--orange-glow));}
 
-.tiny-motto{
-  background:var(--purple-dk); color:var(--gold);
-  display:inline-block; padding:6px 24px; border-radius:60px;
-  font-size:0.82rem; letter-spacing:0.07em;
-  border-left:2px solid var(--b3d-lt); border-top:2px solid var(--b3d-lt);
-  border-right:2px solid var(--b3d-dk); border-bottom:2px solid var(--b3d-dk);
-  box-shadow:0 2px 12px rgba(0,0,0,0.45); margin-bottom:14px;
-}
-
 .ticker-wrap {
   overflow:hidden; white-space:nowrap;
   background:var(--purple-dk);
@@ -140,28 +127,41 @@ body::before {
 }
 .ticker-sep{color:var(--orange-lt); margin:0 14px;}
 
+/* ---------- WRAPPER RESPONSIVO ---------- */
+.building-wrapper {
+  position:relative;
+  width:100%;
+  max-width:604px;
+  margin:0 auto 18px;
+  border-left:3px solid var(--b3d-lt);
+  border-top:3px solid var(--b3d-lt);
+  border-right:3px solid var(--b3d-dk);
+  border-bottom:3px solid var(--b3d-dk);
+  border-radius:32px;
+  box-shadow:0 18px 40px rgba(0,0,0,0.85), 0 0 0 2px rgba(255,170,68,0.22);
+  overflow:hidden;
+}
+
 .building-section {
   position:relative;
-  border-radius:32px;
+  width:100%;
+  height:0;
+  padding-bottom:113.33%; /* 680/600 = 1.1333 */
+  background:transparent;
+  border:none;
+  box-shadow:none;
   overflow:hidden;
-  margin:0 auto 18px;
-  display:inline-block;
-  border-left:3px solid var(--b3d-lt); border-top:3px solid var(--b3d-lt);
-  border-right:3px solid var(--b3d-dk); border-bottom:3px solid var(--b3d-dk);
-  box-shadow:0 18px 40px rgba(0,0,0,0.85), 0 0 0 2px rgba(255,170,68,0.22);
-  width:604px;
-  height: var(--building-height, 580px);
 }
 
 #buildingCanvas {
   position:absolute; inset:0;
   width:100%; height:100%;
-  z-index:0; pointer-events:none; border-radius:30px;
+  z-index:0; pointer-events:none;
 }
 
 .clouds-layer, .fireflies-layer, .bldg-stars-layer, .temp-clouds-layer {
   position:absolute; inset:0; z-index:1; pointer-events:none;
-  overflow:hidden; border-radius:30px;
+  overflow:hidden;
 }
 .temp-clouds-layer { z-index:2; }
 .bldg-stars-layer { opacity:0; transition:opacity 2s ease; }
@@ -246,30 +246,32 @@ body::before {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 52px;
+  height: 7.647%;  /* 52/680 */
   background: #4a8c1c;
   z-index: 3;
   pointer-events: none;
-  border-radius: 0 0 30px 30px;
   box-shadow: inset 0 6px 14px rgba(0,0,0,0.25);
 }
 
 .building-img-wrap {
-  position:absolute; bottom:0; left:0; right:0;
+  position:absolute; inset:0;
   z-index:4;
   display:flex; justify-content:center; align-items:flex-end;
   pointer-events:none;
 }
 .building-img-wrap img#buildingBg {
-  width:600px; height:680px;
-  image-rendering:pixelated;
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:bottom center;
   display:block;
-  object-fit:cover; object-position:bottom center;
 }
 
 #apartmentsGrid {
-  position:absolute; bottom:0; left:50%; transform:translateX(-50%);
-  width:600px; height:680px; z-index:5; pointer-events:auto;
+  position:absolute;
+  top:0; left:0;
+  width:600px; height:680px;
+  z-index:5; pointer-events:auto;
+  transform-origin: top left;
 }
 .windows-overlay{position:relative;width:100%;height:100%;z-index:6;}
 
@@ -290,16 +292,6 @@ body::before {
   filter:drop-shadow(0 0 10px rgba(255,210,80,0.85)) brightness(1.18);
 }
 
-.building-placard {
-  position:relative; z-index:20;
-  background:var(--purple-dk); color:var(--gold);
-  font-size:0.74rem; letter-spacing:0.11em; text-transform:uppercase;
-  padding:5px 22px; border-radius:40px 40px 0 0;
-  border-left:3px solid var(--b3d-lt); border-top:3px solid var(--b3d-lt);
-  border-right:3px solid var(--b3d-dk);
-  display:inline-block; margin-bottom:-1px;
-}
-
 .status-badge{
   background:var(--purple-dk); color:var(--gold);
   border-radius:60px; padding:7px 24px; margin:10px auto;
@@ -310,23 +302,7 @@ body::before {
 }
 .divider{border:none;border-top:1px solid rgba(255,170,68,0.2);margin:20px 0;}
 
-.tomo-btn{
-  background:var(--purple-md); color:var(--gold-lt);
-  font-family:'Rodin',monospace; font-size:13px; font-weight:bold;
-  padding:9px 22px; border-radius:40px;
-  border-left:3px solid var(--b3d-lt); border-top:3px solid var(--b3d-lt);
-  border-right:3px solid var(--b3d-dk); border-bottom:3px solid var(--b3d-dk);
-  cursor:pointer; transition:background .1s,color .1s,transform .1s;
-  box-shadow:0 3px 12px rgba(0,0,0,0.4);
-}
-.tomo-btn:hover{background:var(--orange);color:#000;text-shadow:1px 1px #fff;transform:translateY(-2px);}
-.footer-note{font-size:10px;text-align:center;color:#c4b8d8;margin-top:18px;letter-spacing:.03em;}
-.webring-code{
-  background:var(--purple-dk);color:var(--gold);
-  padding:5px 14px;border-radius:20px;font-size:11px;font-family:monospace;
-  border:1px solid rgba(255,170,68,0.3);
-}
-
+/* ---------- MODAL ---------- */
 .modal-overlay{
   position:fixed; inset:0;
   background:rgba(8,2,18,0.9);
@@ -444,24 +420,19 @@ body::before {
 }
 
 @media(max-width:700px){
-  .building-section{width:100%;max-width:100%;height:460px;}
-  #apartmentsGrid{width:480px;}
-  .building-img-wrap img#buildingBg{width:480px;height:544px;}
   .modal-card{max-width:92vw; min-width:280px;}
 }
 </style>
 </head>
 <body>
-
 <div class="container">
   <div class="yapping-title">✨ Yapping ✨</div>
-
   <center>
     <div class="header-stickers">
-      <img src="tomodachi_imagenes/coffeebug.gif"   alt="coffeebug"    onerror="this.style.display='none'">
-      <img src="tomodachi_imagenes/old-miles.gif"   alt="old miles"    onerror="this.style.display='none'">
+      <img src="tomodachi_imagenes/coffeebug.gif" alt="coffeebug" onerror="this.style.display='none'">
+      <img src="tomodachi_imagenes/old-miles.gif" alt="old miles" onerror="this.style.display='none'">
       <img src="tomodachi_imagenes/bugsleeping.gif" alt="bug sleeping" onerror="this.style.display='none'">
-      <img src="tomodachi_imagenes/old-purple.gif"  alt="old purple"   onerror="this.style.display='none'">
+      <img src="tomodachi_imagenes/old-purple.gif" alt="old purple" onerror="this.style.display='none'">
     </div>
   </center>
 
@@ -470,23 +441,21 @@ body::before {
   </div>
 
   <center>
-    <div class="building-section" id="buildingSection">
-      <canvas id="buildingCanvas"></canvas>
-      <div class="bldg-stars-layer" id="bldgStars"></div>
-      <div class="clouds-layer" id="cloudsLayer"></div>
-      <div class="temp-clouds-layer" id="tempCloudsLayer"></div>
-      <div class="fireflies-layer" id="firefliesLayer"></div>
-      <div class="bldg-orb" id="bldgOrb"></div>
-
-      <div class="grass-strip" id="grassStrip"></div>
-
-      <div class="building-img-wrap">
-        <img id="buildingBg" src="tomodachi_imagenes/apartments3.png" alt="edificio"
-             onerror="this.style.opacity='0'">
-      </div>
-
-      <div id="apartmentsGrid">
-        <div id="windowsContainer" class="windows-overlay"></div>
+    <div class="building-wrapper">
+      <div class="building-section" id="buildingSection">
+        <canvas id="buildingCanvas"></canvas>
+        <div class="bldg-stars-layer" id="bldgStars"></div>
+        <div class="clouds-layer" id="cloudsLayer"></div>
+        <div class="temp-clouds-layer" id="tempCloudsLayer"></div>
+        <div class="fireflies-layer" id="firefliesLayer"></div>
+        <div class="bldg-orb" id="bldgOrb"></div>
+        <div class="grass-strip" id="grassStrip"></div>
+        <div class="building-img-wrap">
+          <img id="buildingBg" src="tomodachi_imagenes/apartments3.png" alt="edificio" onerror="this.style.opacity='0'">
+        </div>
+        <div id="apartmentsGrid">
+          <div id="windowsContainer" class="windows-overlay"></div>
+        </div>
       </div>
     </div>
   </center>
@@ -497,6 +466,7 @@ body::before {
   <hr class="divider">
 </div>
 
+<!-- Modal -->
 <div id="apartmentModal" class="modal-overlay">
   <div class="modal-card">
     <div class="modal-unit-chip" id="modalUnit">000</div>
@@ -547,6 +517,7 @@ function resizeBldgCanvas() {
   bCanvas.width  = sec.offsetWidth  || 640;
   bCanvas.height = sec.offsetHeight || 580;
   drawBldgSky(currentPhase || 'night');
+  positionGrid();  // reposicionar grid tras resize
 }
 
 function drawBldgSky(phase) {
@@ -622,17 +593,15 @@ function spawnClouds(phase) {
   }
 }
 
-/* --- Nubes temporales: límite aumentado a 6 --- */
-const MAX_TEMP_CLOUDS = 6; 
+/* Nubes temporales (máximo 6) */
+const MAX_TEMP_CLOUDS = 6;
 let activeTempCloudsCount = 0;
 
 function createTemporaryCloud() {
   if (activeTempCloudsCount >= MAX_TEMP_CLOUDS) return;
   const container = document.getElementById('tempCloudsLayer');
   if (!container) return;
-
   activeTempCloudsCount++;
-
   const cloudDiv = document.createElement('div');
   cloudDiv.className = 'temp-cloud';
   const startY = 10 + Math.random() * 55;
@@ -741,12 +710,12 @@ function imageExists(url) {
 function getWindowConfig() {
   const s = getComputedStyle(document.documentElement);
   return {
-    width:    parseInt(s.getPropertyValue('--ventana-ancho'))||52,
-    height:   parseInt(s.getPropertyValue('--ventana-alto')) ||52,
+    width:    parseInt(s.getPropertyValue('--ventana-ancho'))||69,
+    height:   parseInt(s.getPropertyValue('--ventana-alto')) ||120,
     gap:      parseInt(s.getPropertyValue('--ventana-gap'))  ||4,
-    piso1Top: parseInt(s.getPropertyValue('--piso1-top'))    ||527,
-    piso2Top: parseInt(s.getPropertyValue('--piso2-top'))    ||405,
-    piso3Top: parseInt(s.getPropertyValue('--piso3-top'))    ||282,
+    piso1Top: 430,
+    piso2Top: 320,
+    piso3Top: 200,
   };
 }
 
@@ -824,15 +793,28 @@ async function renderBuilding() {
       wc.appendChild(icon);
     }
   }
+  positionGrid(); // reposicionar tras cargar ventanas
 }
 
+/* Posicionamiento responsivo del grid */
+function positionGrid() {
+  const grid = document.getElementById('apartmentsGrid');
+  if (!grid) return;
+  const container = document.getElementById('buildingSection');
+  const width = container.offsetWidth;
+  const scale = width / 600;
+  grid.style.transform = `scale(${scale})`;
+  grid.style.left = '0px';
+  grid.style.top = '0px';
+}
+
+/* Modal con un solo recuadro y protección de token */
 const modal      =document.getElementById('apartmentModal');
 const modalUnit  =document.getElementById('modalUnit');
 const modalRes   =document.getElementById('modalResident');
 const modalNote  =document.getElementById('modalNote');
 const modalMood  =document.getElementById('modalMoodTag');
 
-/* ---------- SOLO UN RECUADRO DE FOTO ---------- */
 let photoRequestToken = 0;
 
 async function loadResidentPhoto(apt) {
@@ -841,16 +823,15 @@ async function loadResidentPhoto(apt) {
   const fb  = document.getElementById('modalPhotoFB1');
   if (!box || !fb) return;
 
-  // Limpiar contenido anterior
   const prevImg = box.querySelector('img');
   if (prevImg) prevImg.remove();
   fb.style.display = 'block';
   box.classList.add('loading');
 
-  const fotoUrl = apt.foto || null; // cadena simple
+  const fotoUrl = apt.foto || null;
 
   if (fotoUrl && await imageExists(fotoUrl)) {
-    if (token !== photoRequestToken) return; // abortar si ya se abrió otro modal
+    if (token !== photoRequestToken) return;
     const img = document.createElement('img');
     img.src = fotoUrl;
     img.alt = `foto ${apt.resident || apt.unit_id}`;
@@ -871,7 +852,6 @@ function openModal(apt) {
   const moodText = apt.mood ? apt.mood : '—';
   modalMood.innerText=`estado: ${moodText}`;
 
-  // Limpiar síncronamente el único recuadro
   const box = document.getElementById('modalPhotoBox1');
   const fb  = document.getElementById('modalPhotoFB1');
   if (box) {
@@ -918,7 +898,8 @@ async function loadDataFromJSON() {
 }
 
 async function initialize() {
-  resizeBldgCanvas(); window.addEventListener('resize', resizeBldgCanvas);
+  resizeBldgCanvas();
+  window.addEventListener('resize', resizeBldgCanvas);
   const phase=timePhase(swedenHour());
   currentPhase=phase; drawBldgSky(phase); updateOrb(phase); spawnClouds(phase);
   if (phase==='night'){ spawnBldgStars(true); spawnFireflies(true); }
