@@ -342,7 +342,7 @@ body::before {
   background:linear-gradient(145deg,var(--cream-pale),var(--cream-dark));
   width:auto;
   min-width:400px;
-  max-width:500px;
+  max-width:520px;
   border-radius:48px;
   border-left:3px solid var(--orange-xs); border-top:3px solid var(--orange-xs);
   border-right:3px solid #a04d00; border-bottom:3px solid #a04d00;
@@ -369,6 +369,7 @@ body::before {
   border-right:3px solid #a04d00; border-bottom:3px solid #a04d00;
   padding:12px 14px; margin:0 4px 14px;
   box-shadow:inset 0 1px 3px rgba(0,0,0,0.08); text-align:left;
+  flex-wrap:wrap;
 }
 .modal-photo-info {
   display: flex;
@@ -376,19 +377,24 @@ body::before {
   align-items: flex-start;
   gap: 4px;
 }
+.modal-photo-boxes{
+  display:flex;
+  gap:8px;
+  flex-shrink:0;
+}
 .modal-photo-box{
-  width:82px; height:82px; flex-shrink:0; border-radius:20px;
+  width:70px; height:70px; flex-shrink:0; border-radius:18px;
   background:var(--purple-dk);
   border-left:3px solid rgba(255,239,185,0.4); border-top:3px solid rgba(255,239,185,0.4);
   border-right:3px solid rgba(20,6,40,0.9); border-bottom:3px solid rgba(20,6,40,0.9);
   overflow:hidden; display:flex; align-items:center; justify-content:center;
-  font-size:30px; box-shadow:0 4px 14px rgba(0,0,0,0.45); position:relative;
+  font-size:26px; box-shadow:0 4px 14px rgba(0,0,0,0.45); position:relative;
 }
 .modal-photo-box img{width:100%;height:100%;object-fit:cover;image-rendering:pixelated;display:block;}
 .modal-photo-box.loading::after{
   content:''; position:absolute; inset:0;
   background:linear-gradient(90deg,transparent 25%,rgba(255,239,185,0.25) 50%,transparent 75%);
-  background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:17px;
+  background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:15px;
 }
 @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
 .modal-resident-name{
@@ -495,8 +501,13 @@ body::before {
   <div class="modal-card">
     <div class="modal-unit-chip" id="modalUnit">000</div>
     <div class="modal-photo-frame">
-      <div class="modal-photo-box loading" id="modalPhotoBox">
-        <span id="modalPhotoFB">👤</span>
+      <div class="modal-photo-boxes">
+        <div class="modal-photo-box loading" id="modalPhotoBox1">
+          <span class="modal-photo-fb" id="modalPhotoFB1">👤</span>
+        </div>
+        <div class="modal-photo-box loading" id="modalPhotoBox2">
+          <span class="modal-photo-fb" id="modalPhotoFB2">👤</span>
+        </div>
       </div>
       <div class="modal-photo-info">
         <div class="modal-resident-name" id="modalResident">—</div>
@@ -614,9 +625,17 @@ function spawnClouds(phase) {
   }
 }
 
+/* --- Nubes temporales: límite aumentado a 6 --- */
+const MAX_TEMP_CLOUDS = 6; 
+let activeTempCloudsCount = 0;
+
 function createTemporaryCloud() {
+  if (activeTempCloudsCount >= MAX_TEMP_CLOUDS) return;
   const container = document.getElementById('tempCloudsLayer');
   if (!container) return;
+
+  activeTempCloudsCount++;
+
   const cloudDiv = document.createElement('div');
   cloudDiv.className = 'temp-cloud';
   const startY = 10 + Math.random() * 55;
@@ -632,14 +651,17 @@ function createTemporaryCloud() {
     translateY: [0, (Math.random() - 0.5) * 28],
     easing: 'linear',
     duration: duration,
-    complete: () => { if(cloudDiv && cloudDiv.remove) cloudDiv.remove(); }
+    complete: () => {
+      activeTempCloudsCount = Math.max(0, activeTempCloudsCount - 1);
+      if (cloudDiv && cloudDiv.remove) cloudDiv.remove();
+    }
   });
 }
 
 let temporalCloudInterval;
 function startTemporalClouds() {
   if (temporalCloudInterval) clearInterval(temporalCloudInterval);
-  temporalCloudInterval = setInterval(() => { createTemporaryCloud(); }, 10000);
+  temporalCloudInterval = setInterval(() => { createTemporaryCloud(); }, 12000);
 }
 
 function setGrassNightMode(isNight) {
@@ -812,19 +834,47 @@ const modalUnit  =document.getElementById('modalUnit');
 const modalRes   =document.getElementById('modalResident');
 const modalNote  =document.getElementById('modalNote');
 const modalMood  =document.getElementById('modalMoodTag');
-const modalPBox  =document.getElementById('modalPhotoBox');
-const modalPFB   =document.getElementById('modalPhotoFB');
+
+/* ---------- CORRECCIÓN DE RACE CONDITION ---------- */
+let photoRequestToken = 0;
 
 async function loadResidentPhoto(apt) {
-  const prev=modalPBox.querySelector('img'); if(prev) prev.remove();
-  modalPFB.style.display='block'; modalPBox.classList.add('loading');
-  const fotoUrl = apt.foto || null;
-  if (fotoUrl && await imageExists(fotoUrl)) {
-    const img=document.createElement('img'); img.src=fotoUrl; img.alt=`foto ${apt.resident||apt.unit_id}`;
-    modalPFB.style.display='none'; modalPBox.appendChild(img); modalPBox.classList.remove('loading');
-    return;
+  const token = ++photoRequestToken; // capturar token actual
+  const boxes = [
+    { box: document.getElementById('modalPhotoBox1'), fb: document.getElementById('modalPhotoFB1') },
+    { box: document.getElementById('modalPhotoBox2'), fb: document.getElementById('modalPhotoFB2') }
+  ];
+
+  const fotos = (apt.foto || '')
+    .split(',')
+    .map(f => f.trim())
+    .filter(Boolean);
+
+  for (let i = 0; i < boxes.length; i++) {
+    if (token !== photoRequestToken) return; // abortar si ya no es el último request
+
+    const { box, fb } = boxes[i];
+    // Limpiar el recuadro actual antes de cargar (por si quedó algo)
+    const prevImg = box.querySelector('img');
+    if (prevImg) prevImg.remove();
+    fb.style.display = 'block';
+    box.classList.add('loading');
+
+    const url = fotos[i] || fotos[0] || null;
+
+    if (url && await imageExists(url)) {
+      if (token !== photoRequestToken) return; // abortar tras async
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = `foto ${apt.resident || apt.unit_id} ${i + 1}`;
+      fb.style.display = 'none';
+      box.appendChild(img);
+      box.classList.remove('loading');
+    } else {
+      box.classList.remove('loading');
+      fb.style.display = 'block';
+    }
   }
-  modalPBox.classList.remove('loading'); modalPFB.style.display='block';
 }
 
 function openModal(apt) {
@@ -834,9 +884,27 @@ function openModal(apt) {
   modalNote.innerText=apt.note||'(sin nota personal)';
   const moodText = apt.mood ? apt.mood : '—';
   modalMood.innerText=`estado: ${moodText}`;
+
+  // Limpiar síncronamente ambos recuadros de foto
+  const box1 = document.getElementById('modalPhotoBox1');
+  const box2 = document.getElementById('modalPhotoBox2');
+  const fb1 = document.getElementById('modalPhotoFB1');
+  const fb2 = document.getElementById('modalPhotoFB2');
+
+  [box1, box2].forEach(box => {
+    if (box) {
+      const imgs = box.querySelectorAll('img');
+      imgs.forEach(img => img.remove());
+      box.classList.remove('loading');
+    }
+  });
+  if (fb1) fb1.style.display = 'block';
+  if (fb2) fb2.style.display = 'block';
+
   loadResidentPhoto(apt);
   modal.classList.add('open');
 }
+
 function closeModal(){modal.classList.remove('open');}
 document.getElementById('closeModalBtn').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
