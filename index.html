@@ -505,9 +505,6 @@ body::before {
         <div class="modal-photo-box loading" id="modalPhotoBox1">
           <span class="modal-photo-fb" id="modalPhotoFB1">👤</span>
         </div>
-        <div class="modal-photo-box loading" id="modalPhotoBox2">
-          <span class="modal-photo-fb" id="modalPhotoFB2">👤</span>
-        </div>
       </div>
       <div class="modal-photo-info">
         <div class="modal-resident-name" id="modalResident">—</div>
@@ -835,45 +832,34 @@ const modalRes   =document.getElementById('modalResident');
 const modalNote  =document.getElementById('modalNote');
 const modalMood  =document.getElementById('modalMoodTag');
 
-/* ---------- CORRECCIÓN DE RACE CONDITION ---------- */
+/* ---------- SOLO UN RECUADRO DE FOTO ---------- */
 let photoRequestToken = 0;
 
 async function loadResidentPhoto(apt) {
-  const token = ++photoRequestToken; // capturar token actual
-  const boxes = [
-    { box: document.getElementById('modalPhotoBox1'), fb: document.getElementById('modalPhotoFB1') },
-    { box: document.getElementById('modalPhotoBox2'), fb: document.getElementById('modalPhotoFB2') }
-  ];
+  const token = ++photoRequestToken;
+  const box = document.getElementById('modalPhotoBox1');
+  const fb  = document.getElementById('modalPhotoFB1');
+  if (!box || !fb) return;
 
-  const fotos = (apt.foto || '')
-    .split(',')
-    .map(f => f.trim())
-    .filter(Boolean);
+  // Limpiar contenido anterior
+  const prevImg = box.querySelector('img');
+  if (prevImg) prevImg.remove();
+  fb.style.display = 'block';
+  box.classList.add('loading');
 
-  for (let i = 0; i < boxes.length; i++) {
-    if (token !== photoRequestToken) return; // abortar si ya no es el último request
+  const fotoUrl = apt.foto || null; // cadena simple
 
-    const { box, fb } = boxes[i];
-    // Limpiar el recuadro actual antes de cargar (por si quedó algo)
-    const prevImg = box.querySelector('img');
-    if (prevImg) prevImg.remove();
+  if (fotoUrl && await imageExists(fotoUrl)) {
+    if (token !== photoRequestToken) return; // abortar si ya se abrió otro modal
+    const img = document.createElement('img');
+    img.src = fotoUrl;
+    img.alt = `foto ${apt.resident || apt.unit_id}`;
+    fb.style.display = 'none';
+    box.appendChild(img);
+    box.classList.remove('loading');
+  } else {
+    box.classList.remove('loading');
     fb.style.display = 'block';
-    box.classList.add('loading');
-
-    const url = fotos[i] || fotos[0] || null;
-
-    if (url && await imageExists(url)) {
-      if (token !== photoRequestToken) return; // abortar tras async
-      const img = document.createElement('img');
-      img.src = url;
-      img.alt = `foto ${apt.resident || apt.unit_id} ${i + 1}`;
-      fb.style.display = 'none';
-      box.appendChild(img);
-      box.classList.remove('loading');
-    } else {
-      box.classList.remove('loading');
-      fb.style.display = 'block';
-    }
   }
 }
 
@@ -885,21 +871,15 @@ function openModal(apt) {
   const moodText = apt.mood ? apt.mood : '—';
   modalMood.innerText=`estado: ${moodText}`;
 
-  // Limpiar síncronamente ambos recuadros de foto
-  const box1 = document.getElementById('modalPhotoBox1');
-  const box2 = document.getElementById('modalPhotoBox2');
-  const fb1 = document.getElementById('modalPhotoFB1');
-  const fb2 = document.getElementById('modalPhotoFB2');
-
-  [box1, box2].forEach(box => {
-    if (box) {
-      const imgs = box.querySelectorAll('img');
-      imgs.forEach(img => img.remove());
-      box.classList.remove('loading');
-    }
-  });
-  if (fb1) fb1.style.display = 'block';
-  if (fb2) fb2.style.display = 'block';
+  // Limpiar síncronamente el único recuadro
+  const box = document.getElementById('modalPhotoBox1');
+  const fb  = document.getElementById('modalPhotoFB1');
+  if (box) {
+    const imgs = box.querySelectorAll('img');
+    imgs.forEach(img => img.remove());
+    box.classList.remove('loading');
+  }
+  if (fb) fb.style.display = 'block';
 
   loadResidentPhoto(apt);
   modal.classList.add('open');
