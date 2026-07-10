@@ -7,7 +7,7 @@
       "resident": "Noah",
       "note": "Toy canshao",
       "mood": "ZzzZZzz",
-      "mood_windows": "tomodachi_imagenes/playA.gif,tomodachi_imagenes/playB.gif",
+      "mood_windows": "tomodachi_imagenes/wormA.gif,tomodachi_imagenes/wormB.gif",
           "foto": "personajes_imagenes/Noah.jpg"
     }, 
     {
@@ -39,6 +39,16 @@
       "mood": "Tranquilo",
       "mood_windows": "tomodachi_imagenes/skyA.gif,tomodachi_imagenes/skyB.gif",
           "foto": "personajes_imagenes/Daniel.png"
+    },
+        {
+      "unit_id": "203",
+      "floor": 2,
+      "position": 3,
+      "resident": "Static",
+      "note": "Experto en basquet",
+      "mood": "feliz",
+      "mood_windows": "tomodachi_imagenes/playA.gif,tomodachi_imagenes/playB.gif",
+          "foto": "personajes_imagenes/Static.jpg"
     },
     {
       "unit_id": "204",
