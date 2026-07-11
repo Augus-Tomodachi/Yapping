@@ -30,6 +30,16 @@
       "mood_windows": "tomodachi_imagenes/problemA.gif,tomodachi_imagenes/problemB.gif",
           "foto": "personajes_imagenes/Iris.jpg"
     },
+       {
+      "unit_id": "108",
+      "floor": 1,
+      "position": 8,
+      "resident": "Nath Pou",
+      "note": "Alpha Agency let's gooo",
+      "mood": "Chilleando oomm",
+      "mood_windows": "tomodachi_imagenes/shapesA.gif,tomodachi_imagenes/pou.gif",
+          "foto": "personajes_imagenes/Nathan.png"
+    },
     {
       "unit_id": "201",
       "floor": 2,
