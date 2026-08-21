@@ -90,6 +90,27 @@ body::before {
   margin-bottom: 18px;
   text-shadow: 0 0 10px var(--orange-glow), 0 2px 6px rgba(0,0,0,0.5);
   letter-spacing: 0.06em;
+  cursor: pointer; /* nuevo: indica que es interactivo */
+  transition: transform 0.2s;
+}
+.yapping-title:hover {
+  transform: scale(1.05); /* nuevo: feedback visual */
+}
+
+.error-message {
+  display: none;
+  background: var(--purple-dk);
+  color: #ff6666;
+  text-align: center;
+  padding: 8px 16px;
+  border-radius: 30px;
+  margin: 0 auto 12px;
+  max-width: 400px;
+  border-left: 2px solid var(--orange-xs);
+  border-top: 2px solid var(--orange-xs);
+  border-right: 2px solid #a04d00;
+  border-bottom: 2px solid #a04d00;
+  font-size: 14px;
 }
 
 .header-stickers{display:flex;justify-content:center;gap:16px;margin:6px 0 12px;flex-wrap:wrap;}
@@ -419,6 +440,25 @@ body::before {
   border-color:#c7fffe #c7fffe #34b0ae #34b0ae;transform:translateY(-1px);
 }
 
+/* Estilos para el input del modal de código */
+.code-input {
+  width: 80%;
+  padding: 10px 15px;
+  font-family: 'Rodin', monospace;
+  font-size: 16px;
+  background: var(--cream-pale);
+  border: 3px solid var(--orange-xs);
+  border-radius: 25px;
+  outline: none;
+  color: var(--text-dark);
+  text-align: center;
+  margin-bottom: 10px;
+  transition: border-color 0.2s;
+}
+.code-input:focus {
+  border-color: var(--orange-lt);
+}
+
 @media(max-width:700px){
   .modal-card{max-width:92vw; min-width:280px;}
 }
@@ -426,7 +466,8 @@ body::before {
 </head>
 <body>
 <div class="container">
-  <div class="yapping-title">✨ Yapping ✨</div>
+  <div class="yapping-title" id="yappingTitle">✨ Yapping ✨</div>
+
   <center>
     <div class="header-stickers">
       <img src="tomodachi_imagenes/coffeebug.gif" alt="coffeebug" onerror="this.style.display='none'">
@@ -466,7 +507,7 @@ body::before {
   <hr class="divider">
 </div>
 
-<!-- Modal -->
+<!-- Modal de Apartamentos -->
 <div id="apartmentModal" class="modal-overlay">
   <div class="modal-card">
     <div class="modal-unit-chip" id="modalUnit">000</div>
@@ -483,6 +524,19 @@ body::before {
     </div>
     <div class="modal-note" id="modalNote">cargando...</div>
     <button class="tomo-close-btn" id="closeModalBtn">Cerrar</button>
+  </div>
+</div>
+
+<!-- Modal de Código -->
+<div id="codeModal" class="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-unit-chip" style="margin-top:0;">🔑 Código</div>
+    <div id="codeError" style="display:none; color:#ff6666; margin-bottom:10px; font-size:14px;"></div>
+    <input type="text" id="codeInput" class="code-input" placeholder="Introduce el código" autocomplete="off">
+    <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+      <button id="codeSubmitBtn" class="tomo-close-btn" style="margin-top:0;">Ir</button>
+      <button id="codeCancelBtn" class="tomo-close-btn" style="margin-top:0; background:var(--purple-md);">Cancelar</button>
+    </div>
   </div>
 </div>
 
@@ -808,7 +862,7 @@ function positionGrid() {
   grid.style.top = '0px';
 }
 
-/* Modal con un solo recuadro y protección de token */
+/* Modal de apartamento */
 const modal      =document.getElementById('apartmentModal');
 const modalUnit  =document.getElementById('modalUnit');
 const modalRes   =document.getElementById('modalResident');
@@ -869,6 +923,86 @@ function closeModal(){modal.classList.remove('open');}
 document.getElementById('closeModalBtn').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+/* ========== NUEVO: Modal de código ========== */
+const codeModal = document.getElementById('codeModal');
+const codeInput = document.getElementById('codeInput');
+const codeError = document.getElementById('codeError');
+
+function openCodeModal() {
+  codeModal.classList.add('open');
+  codeInput.value = '';
+  codeError.style.display = 'none';
+  codeInput.focus();
+}
+
+function closeCodeModal() {
+  codeModal.classList.remove('open');
+}
+
+function showCodeError(msg) {
+  codeError.textContent = msg;
+  codeError.style.display = 'block';
+}
+
+async function checkPageExists(url) {
+  try {
+    const response = await fetch(url, { method: 'HEAD' });
+    return response.ok;
+  } catch (e) {
+    try {
+      const getResponse = await fetch(url, { method: 'GET' });
+      return getResponse.ok;
+    } catch (e2) {
+      return false;
+    }
+  }
+}
+
+async function submitCode() {
+  const code = codeInput.value.trim();
+  if (!code) {
+    showCodeError('Introduce un código.');
+    return;
+  }
+
+  // Sanitizar: solo letras, números, guiones y guiones bajos
+  const sanitized = code.replace(/[^a-zA-Z0-9_-]/g, '');
+  if (!sanitized) {
+    showCodeError('Código inválido. Usa solo letras, números, guiones o guiones bajos.');
+    return;
+  }
+
+  const targetUrl = sanitized + '.html';
+  const exists = await checkPageExists(targetUrl);
+
+  if (exists) {
+    window.location.href = targetUrl;
+  } else {
+    showCodeError(`La página "${targetUrl}" no existe.`);
+  }
+}
+
+// Eventos del modal de código
+document.getElementById('codeSubmitBtn').addEventListener('click', submitCode);
+document.getElementById('codeCancelBtn').addEventListener('click', closeCodeModal);
+codeModal.addEventListener('click', e => {
+  if (e.target === codeModal) closeCodeModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (codeModal.classList.contains('open')) closeCodeModal();
+    if (modal.classList.contains('open')) closeModal();
+  }
+});
+codeInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitCode();
+});
+
+// Clic en el título Yapping
+document.getElementById('yappingTitle').addEventListener('click', openCodeModal);
+
+/* ========== FIN NUEVO: Modal de código ========== */
 
 async function loadDataFromJSON() {
   try {
