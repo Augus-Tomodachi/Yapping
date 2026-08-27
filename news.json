@@ -1,0 +1,31 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "¿El regreso de los males de Suecia?",
+      "date": "2067-03-04",
+      "tag": "Destrucción, Estrella",
+      "cover": "https://usagif.com/wp-content/uploads/2022/fzk5d/20-smooth-storm.gif",
+      "excerpt": "Gran destrucción en Helsingborg. ¿Vuelven las Trombas?",
+      "content": "<p>Momento sorpresivo. Después de años, y tras la culpa de la <strong>Era vacía</strong>, se reportan múltiples Trombas que milagrosamente no causaron daños directos a la ciudad, solo en los entornos cercanos. Se habla mucho de la posibilidad de múltiples miembros de la Estrella en este avistamiento.</p>"
+    },
+    {
+      "id": 2,
+      "title": "El cielo más brillante en años",
+      "date": "2067-02-28",
+      "tag": "clima",
+      "cover": "https://i.pinimg.com/736x/79/49/c7/7949c7912288251b5ef40a593ca99027.jpg",
+      "excerpt": "Locales hablan de sucesos extraños en Helsingborg.",
+      "content": "<p>Se hace mención entre los locales de una evacuación solicitada por el gobierno, con múltiples militares al cargo, entre ellos nombres reconocidos como Alice Lindberg y Winston Davis, bajo el mando del Líder del Escuadrón Militar Aéreo, Fyodor Kravchenko. Varios testigos afirman haber visto cómo el cielo se iluminaba y cubría toda la ciudad...</p>"
+    },
+    {
+      "id": 3,
+      "title": "Ataques continuos en Rauch",
+      "date": "2067-02-25",
+      "tag": "Investigación",
+      "cover": "https://i.pinimg.com/736x/79/49/c7/7949c7912288251b5ef40a593ca99027.jpg",
+      "excerpt": "Daños en zonas poco transitadas.",
+      "content": "<p>Se conocen múltiples ataques en barrios de bajo nivel económico: explosiones de gases que desaparecen en muy poco tiempo. No se ha avistado al causante de estos daños, pero su frecuencia sugiere un patrón mensual, con 5 reportes consecutivos que rondan las mismas horas.</p>"
+    }
+  ]
+}
