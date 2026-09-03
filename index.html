@@ -90,11 +90,11 @@ body::before {
   margin-bottom: 18px;
   text-shadow: 0 0 10px var(--orange-glow), 0 2px 6px rgba(0,0,0,0.5);
   letter-spacing: 0.06em;
-  cursor: pointer; /* nuevo: indica que es interactivo */
+  cursor: pointer;
   transition: transform 0.2s;
 }
 .yapping-title:hover {
-  transform: scale(1.05); /* nuevo: feedback visual */
+  transform: scale(1.05);
 }
 
 .error-message {
@@ -386,8 +386,9 @@ body::before {
   border-right:3px solid rgba(20,6,40,0.9); border-bottom:3px solid rgba(20,6,40,0.9);
   overflow:hidden; display:flex; align-items:center; justify-content:center;
   font-size:26px; box-shadow:0 4px 14px rgba(0,0,0,0.45); position:relative;
+  cursor: pointer; /* nuevo: indica que es clicable */
 }
-.modal-photo-box img{width:100%;height:100%;object-fit:cover;image-rendering:pixelated;display:block;}
+.modal-photo-box img{width:100%;height:100%;object-fit:cover;display:block;}
 .modal-photo-box.loading::after{
   content:''; position:absolute; inset:0;
   background:linear-gradient(90deg,transparent 25%,rgba(255,239,185,0.25) 50%,transparent 75%);
@@ -425,6 +426,156 @@ body::before {
   overflow-wrap:break-word;
   white-space:normal;
 }
+
+/* ========== Galería ========== */
+.modal-gallery {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  margin: 8px 4px;
+  flex-wrap: wrap;
+}
+
+.gallery-box {
+  width: 90px;
+  height: 80px;               /* altura fija para uniformidad */
+  background: var(--purple-dk);
+  border-radius: 20px;
+  border-left: 2px solid rgba(255,239,185,0.3);
+  border-top: 2px solid rgba(255,239,185,0.3);
+  border-right: 2px solid rgba(20,6,40,0.8);
+  border-bottom: 2px solid rgba(20,6,40,0.8);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 5px;
+}
+
+.gallery-box.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.gallery-plus {
+  font-size: 32px;
+  color: rgba(255,239,185,0.7);
+  user-select: none;
+  line-height: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.gallery-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  display: none;
+}
+
+.gallery-box.has-image .gallery-thumb {
+  display: block;
+}
+
+.gallery-box.has-image .gallery-plus {
+  display: none;
+}
+
+.cloud-bubble {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: white;
+  color: var(--text-dark);
+  padding: 8px 12px;
+  border-radius: 18px;
+  font-size: 11px;
+  line-height: 1.35;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+  width: 180px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 20;
+  text-align: center;
+  word-break: break-word;
+}
+.cloud-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: white;
+}
+.gallery-box:hover .cloud-bubble {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* Modal de vista previa */
+.preview-card {
+  background: var(--cream-pale);
+  padding: 20px;
+  text-align: center;
+  max-width: 80vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preview-close-btn {
+  align-self: flex-end;
+  background: var(--orange);
+  border: none;
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: background 0.2s;
+}
+.preview-close-btn:hover {
+  background: #00fefc;
+}
+
+#previewImage {
+  max-width: 70vw;
+  max-height: 60vh;
+  object-fit: contain;
+  border-radius: 12px;
+  margin: 10px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+#previewComment {
+  font-size: 16px;
+  color: var(--text-dark);
+  background: white;
+  padding: 12px 18px;
+  border-radius: 20px;
+  max-width: 80%;
+  word-break: break-word;
+  line-height: 1.4;
+}
+/* ========== Fin Galería ========== */
+
 .tomo-close-btn{
   background:var(--orange);font-family:'Rodin',monospace;
   font-size:14px;font-weight:bold;color:#000;text-shadow:1px 1px rgba(255,255,255,0.7);
@@ -513,7 +664,7 @@ body::before {
     <div class="modal-unit-chip" id="modalUnit">000</div>
     <div class="modal-photo-frame">
       <div class="modal-photo-boxes">
-        <div class="modal-photo-box loading" id="modalPhotoBox1">
+        <div class="modal-photo-box loading" id="modalPhotoBox1" title="Clic para ampliar">
           <span class="modal-photo-fb" id="modalPhotoFB1">👤</span>
         </div>
       </div>
@@ -523,7 +674,36 @@ body::before {
       </div>
     </div>
     <div class="modal-note" id="modalNote">cargando...</div>
+    
+    <!-- Galería de 3 miniaturas -->
+    <div class="modal-gallery" id="modalGallery">
+      <div class="gallery-box disabled" data-index="0">
+        <img class="gallery-thumb" src="" alt="Miniatura 1">
+        <span class="gallery-plus">+</span>
+        <div class="cloud-bubble"></div>
+      </div>
+      <div class="gallery-box disabled" data-index="1">
+        <img class="gallery-thumb" src="" alt="Miniatura 2">
+        <span class="gallery-plus">+</span>
+        <div class="cloud-bubble"></div>
+      </div>
+      <div class="gallery-box disabled" data-index="2">
+        <img class="gallery-thumb" src="" alt="Miniatura 3">
+        <span class="gallery-plus">+</span>
+        <div class="cloud-bubble"></div>
+      </div>
+    </div>
+
     <button class="tomo-close-btn" id="closeModalBtn">Cerrar</button>
+  </div>
+</div>
+
+<!-- Modal de vista previa de imagen (compartido para foto residente y galería) -->
+<div id="galleryPreviewModal" class="modal-overlay">
+  <div class="modal-card preview-card">
+    <button class="preview-close-btn" id="previewCloseBtn">&times;</button>
+    <img id="previewImage" src="" alt="Imagen ampliada">
+    <div id="previewComment"></div>
   </div>
 </div>
 
@@ -543,6 +723,8 @@ body::before {
 <script>
 const IMAGE_BASE = "tomodachi_imagenes/";
 let apartmentsData = [];
+let galleryData = []; // Datos de galería
+let currentApt = null; // Para saber qué apartamento está abierto
 
 function swedenHour() {
   const sw = new Date(new Date().toLocaleString("en-US",{timeZone:"Europe/Stockholm"}));
@@ -571,7 +753,7 @@ function resizeBldgCanvas() {
   bCanvas.width  = sec.offsetWidth  || 640;
   bCanvas.height = sec.offsetHeight || 580;
   drawBldgSky(currentPhase || 'night');
-  positionGrid();  // reposicionar grid tras resize
+  positionGrid();
 }
 
 function drawBldgSky(phase) {
@@ -847,7 +1029,7 @@ async function renderBuilding() {
       wc.appendChild(icon);
     }
   }
-  positionGrid(); // reposicionar tras cargar ventanas
+  positionGrid();
 }
 
 /* Posicionamiento responsivo del grid */
@@ -900,6 +1082,7 @@ async function loadResidentPhoto(apt) {
 
 function openModal(apt) {
   if (!apt) return;
+  currentApt = apt; // guardamos el apartamento actual
   modalUnit.innerText=`Apt. ${apt.unit_id}`;
   modalRes.innerText =apt.resident||'Residente';
   modalNote.innerText=apt.note||'(sin nota personal)';
@@ -916,6 +1099,10 @@ function openModal(apt) {
   if (fb) fb.style.display = 'block';
 
   loadResidentPhoto(apt);
+  
+  // Cargar galería para este apartamento
+  loadGalleryForApartment(apt.unit_id);
+  
   modal.classList.add('open');
 }
 
@@ -924,7 +1111,87 @@ document.getElementById('closeModalBtn').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
-/* ========== NUEVO: Modal de código ========== */
+/* ========== Galería ========== */
+const galleryContainer = document.getElementById('modalGallery');
+const galleryPreviewModal = document.getElementById('galleryPreviewModal');
+const previewImage = document.getElementById('previewImage');
+const previewComment = document.getElementById('previewComment');
+const previewCloseBtn = document.getElementById('previewCloseBtn');
+
+// Cerrar modal de vista previa
+function closePreviewModal() {
+  galleryPreviewModal.classList.remove('open');
+}
+previewCloseBtn.addEventListener('click', closePreviewModal);
+galleryPreviewModal.addEventListener('click', e => {
+  if (e.target === galleryPreviewModal) closePreviewModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (galleryPreviewModal.classList.contains('open')) closePreviewModal();
+  }
+});
+
+function loadGalleryForApartment(unitId) {
+  const boxes = galleryContainer.querySelectorAll('.gallery-box');
+  // Reiniciar cada caja
+  boxes.forEach(box => {
+    box.classList.add('disabled');
+    box.classList.remove('has-image');
+    const img = box.querySelector('.gallery-thumb');
+    const bubble = box.querySelector('.cloud-bubble');
+    if (img) img.src = '';
+    if (bubble) bubble.textContent = '';
+    box.onclick = null;
+  });
+
+  const entry = galleryData.find(g => g.unit_id === unitId);
+  if (!entry || !entry.items || entry.items.length === 0) return;
+
+  boxes.forEach((box, index) => {
+    const item = entry.items[index];
+    if (!item || !item.image) return; // sin imagen, sigue deshabilitada
+
+    // Verificar que la imagen exista (async)
+    imageExists(item.image).then(exists => {
+      if (!exists) return;
+      // La imagen existe: mostrar miniatura
+      const img = box.querySelector('.gallery-thumb');
+      const bubble = box.querySelector('.cloud-bubble');
+      if (img) {
+        img.src = item.image;
+        box.classList.add('has-image');
+      }
+      if (bubble && item.comment) {
+        bubble.textContent = item.comment;
+      }
+      box.classList.remove('disabled');
+      box.onclick = () => {
+        // Mostrar vista previa en modal
+        previewImage.src = item.image;
+        previewComment.textContent = item.comment || '';
+        galleryPreviewModal.classList.add('open');
+      };
+    });
+  });
+}
+/* ========== Fin Galería ========== */
+
+/* ========== Ampliación de foto de residente ========== */
+document.getElementById('modalPhotoBox1').addEventListener('click', (e) => {
+  if (!currentApt || !currentApt.foto) return;
+  // Verificar que exista la imagen antes de abrir el preview
+  imageExists(currentApt.foto).then(exists => {
+    if (exists) {
+      previewImage.src = currentApt.foto;
+      previewComment.textContent = currentApt.note || currentApt.resident || '';
+      galleryPreviewModal.classList.add('open');
+    }
+  });
+});
+/* ========== Fin ampliación foto ========== */
+
+/* ========== Modal de código ========== */
 const codeModal = document.getElementById('codeModal');
 const codeInput = document.getElementById('codeInput');
 const codeError = document.getElementById('codeError');
@@ -966,7 +1233,6 @@ async function submitCode() {
     return;
   }
 
-  // Sanitizar: solo letras, números, guiones y guiones bajos
   const sanitized = code.replace(/[^a-zA-Z0-9_-]/g, '');
   if (!sanitized) {
     showCodeError('Código inválido. Usa solo letras, números, guiones o guiones bajos.');
@@ -983,7 +1249,6 @@ async function submitCode() {
   }
 }
 
-// Eventos del modal de código
 document.getElementById('codeSubmitBtn').addEventListener('click', submitCode);
 document.getElementById('codeCancelBtn').addEventListener('click', closeCodeModal);
 codeModal.addEventListener('click', e => {
@@ -993,17 +1258,16 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     if (codeModal.classList.contains('open')) closeCodeModal();
     if (modal.classList.contains('open')) closeModal();
+    if (galleryPreviewModal.classList.contains('open')) closePreviewModal();
   }
 });
 codeInput.addEventListener('keydown', e => {
   if (e.key === 'Enter') submitCode();
 });
 
-// Clic en el título Yapping
 document.getElementById('yappingTitle').addEventListener('click', openCodeModal);
 
-/* ========== FIN NUEVO: Modal de código ========== */
-
+/* ========== Carga de datos ========== */
 async function loadDataFromJSON() {
   try {
     const res=await fetch('./tomodachi_data.json');
@@ -1031,6 +1295,25 @@ async function loadDataFromJSON() {
   }
 }
 
+async function loadGalleryData() {
+  try {
+    const res = await fetch('./gallery_data.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    if (json && json.gallery && Array.isArray(json.gallery)) {
+      galleryData = json.gallery;
+    } else if (Array.isArray(json)) {
+      galleryData = json;
+    } else {
+      console.warn('Formato de gallery_data.json no reconocido, se usará vacío.');
+      galleryData = [];
+    }
+  } catch (err) {
+    console.warn('No se pudo cargar gallery_data.json:', err.message);
+    galleryData = [];
+  }
+}
+
 async function initialize() {
   resizeBldgCanvas();
   window.addEventListener('resize', resizeBldgCanvas);
@@ -1038,7 +1321,10 @@ async function initialize() {
   currentPhase=phase; drawBldgSky(phase); updateOrb(phase); spawnClouds(phase);
   if (phase==='night'){ spawnBldgStars(true); spawnFireflies(true); }
   setGrassNightMode(phase==='night');
+  
+  await loadGalleryData();
   await loadDataFromJSON();
+  
   setInterval(checkPhase, 3*60*1000);
   startTemporalClouds();
 }
