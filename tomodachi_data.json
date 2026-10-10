@@ -8,8 +8,8 @@
       "note": "Toy canshao",
       "mood": "ZzzZZzz",
       "mood_windows": "tomodachi_imagenes/wormA.gif,tomodachi_imagenes/wormB.gif",
-          "foto": "personajes_imagenes/Noah.jpg"
-    }, 
+      "foto": "personajes_imagenes/Noah.jpg"
+    },
     {
       "unit_id": "103",
       "floor": 1,
@@ -18,9 +18,9 @@
       "note": "Estoy practicando con el arco...",
       "mood": "Serena",
       "mood_windows": "tomodachi_imagenes/scribbleA.gif,tomodachi_imagenes/scribbleB.gif",
-          "foto": "personajes_imagenes/Logan.png"
+      "foto": "personajes_imagenes/Logan.png"
     },
-       {
+    {
       "unit_id": "105",
       "floor": 1,
       "position": 5,
@@ -28,17 +28,17 @@
       "note": "Rauch es una ciudad poco fotogénica",
       "mood": "Desinspirada",
       "mood_windows": "tomodachi_imagenes/problemA.gif,tomodachi_imagenes/problemB.gif",
-          "foto": "personajes_imagenes/Iris.jpg"
+      "foto": "personajes_imagenes/Iris.jpg"
     },
-       {
+    {
       "unit_id": "108",
       "floor": 1,
       "position": 8,
       "resident": "Nath Pou",
-      "note": "Alpha Agency let's gooo",
+      "note": "Soy cabro",
       "mood": "Chilleando oomm",
       "mood_windows": "tomodachi_imagenes/shapesA.gif,tomodachi_imagenes/pou.png",
-          "foto": "personajes_imagenes/Nathan.png"
+      "foto": "personajes_imagenes/Nathan.png"
     },
     {
       "unit_id": "201",
@@ -48,9 +48,9 @@
       "note": "Resolviendo el crucigrama de hoy",
       "mood": "Tranquilo",
       "mood_windows": "tomodachi_imagenes/skyA.gif,tomodachi_imagenes/skyB.gif",
-          "foto": "personajes_imagenes/Daniel.png"
+      "foto": "personajes_imagenes/Daniel.png"
     },
-        {
+    {
       "unit_id": "203",
       "floor": 2,
       "position": 3,
@@ -58,7 +58,7 @@
       "note": "Experto en basquet",
       "mood": "feliz",
       "mood_windows": "tomodachi_imagenes/playA.gif,tomodachi_imagenes/playB.gif",
-          "foto": "personajes_imagenes/Static.jpg"
+      "foto": "personajes_imagenes/Static.jpg"
     },
     {
       "unit_id": "204",
@@ -68,9 +68,9 @@
       "note": "(Los caminos de la vida-)",
       "mood": "Ansiosa",
       "mood_windows": "tomodachi_imagenes/swirlA.gif,tomodachi_imagenes/swirlB.gif",
-          "foto": "personajes_imagenes/Ather.jpg"
+      "foto": "personajes_imagenes/Ather.jpg"
     },
-        {
+    {
       "unit_id": "205",
       "floor": 2,
       "position": 5,
@@ -78,9 +78,9 @@
       "note": "Estoy conquistando el submundo del Rey Rata. No me llamen",
       "mood": "Tranquilo",
       "mood_windows": "tomodachi_imagenes/homeA.gif,tomodachi_imagenes/homeB.gif",
-          "foto": "personajes_imagenes/Ronin.png"
+      "foto": "personajes_imagenes/Ronin.png"
     },
-     {
+    {
       "unit_id": "207",
       "floor": 2,
       "position": 7,
@@ -88,9 +88,9 @@
       "note": "Me identificó como gato... No por thenían, si no por vago",
       "mood": "Cansado 😴",
       "mood_windows": "tomodachi_imagenes/sadA.gif,tomodachi_imagenes/sadB.gif",
-          "foto": "personajes_imagenes/Andreas.png"
+      "foto": "personajes_imagenes/Andreas.png"
     },
-     {
+    {
       "unit_id": "301",
       "floor": 3,
       "position": 1,
@@ -98,9 +98,9 @@
       "note": "snadkajfnev (El comentario sagrado de mi Ambar)",
       "mood": "Confundida",
       "mood_windows": "tomodachi_imagenes/swirlA.gif,tomodachi_imagenes/swirlB.gif",
-          "foto": "personajes_imagenes/Moxy.jpg"
+      "foto": "personajes_imagenes/Moxy.jpg"
     },
-     {
+    {
       "unit_id": "302",
       "floor": 3,
       "position": 2,
@@ -108,9 +108,9 @@
       "note": "Absolute Bubbleman >>> Bubblefall y The Dark Bubble Returns juntos. No leo lloros.",
       "mood": "Contento",
       "mood_windows": "tomodachi_imagenes/playA.gif,tomodachi_imagenes/playB.gif",
-          "foto": "personajes_imagenes/Judai.png"
+      "foto": "personajes_imagenes/Judai.png"
     },
-      {
+    {
       "unit_id": "305",
       "floor": 3,
       "position": 5,
@@ -118,9 +118,9 @@
       "note": "Quiero ver una de esas series de eliminación... Eva me dijo que Drama Total es buena.",
       "mood": "Contenta :3",
       "mood_windows": "tomodachi_imagenes/loveA.gif,tomodachi_imagenes/loveB.gif",
-          "foto": "personajes_imagenes/May.jpg"
+      "foto": "personajes_imagenes/May.jpg"
     },
-          {
+    {
       "unit_id": "306",
       "floor": 3,
       "position": 6,
@@ -128,9 +128,9 @@
       "note": " Ayuda, no puedo pasar del primer capitulo del anime del pirata de goma y sus amigos (ᗒᗣᗕ)՞.",
       "mood": "Alegre ( ˘▽˘)っ♨",
       "mood_windows": "tomodachi_imagenes/playA.gif,tomodachi_imagenes/playB.gif",
-          "foto": "personajes_imagenes/Eva.png"
+      "foto": "personajes_imagenes/Eva.png"
     },
-     {
+    {
       "unit_id": "308",
       "floor": 3,
       "position": 8,
@@ -138,8 +138,7 @@
       "note": "15687-27-1 M01AE01 3672 DB01050 3544 WK2XYI10QM D00126 5855",
       "mood": "FELIZSHSJA",
       "mood_windows": "tomodachi_imagenes/swirlA.gif,tomodachi_imagenes/swirlB.gif",
-          "foto": "personajes_imagenes/Yakui.jpg"
+      "foto": "personajes_imagenes/Yakui.jpg"
     }
-    
   ]
 }
